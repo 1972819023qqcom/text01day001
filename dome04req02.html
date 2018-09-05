@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<body>
+<!-- <form action="http://127.0.0.1:3030" method="get"> -->
+    账号：<input type="text" name="username" id="uesr"/><br>
+    密码：<input type="password" name="password" id="pass"/><br>
+    <!-- <input type="button" id="btn" value="提交"/> -->
+    <button id="btn">提交</button>
+    <p id="text"></p>
+<!-- </form> -->
+
+
+    <script type="text/javascript">
+        $(function(){
+            $("#btn").click(function(){
+                $.ajax({
+                    type:"get",
+                    url:"http://127.0.0.1:3030",
+                    dataType:"jsonp",  //解决跨域
+                    jsonpCallback:"showdata",
+                    data:{
+                        username:$("#uesr").val(),
+                        password:$("#pass").val()
+                    }
+                }).done(function(result){
+                     console.log(result);
+                })
+            })
+
+            function showdata(data){
+                console.log(data);
+                var _data = JSON.stringify(data)
+                $("#text").html(_data);
+            }
+
+        })
+
+        
+    </script>  
+</body>
+</html>
